@@ -8,4 +8,4 @@ wget -nv https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/downlo
 # Install packages
 R CMD INSTALL /tmp_setup/R4_rClr_$1_CentOS7.tar.gz && \
 R CMD INSTALL /tmp_setup/tlf_$2.tar.gz --install-tests && \
-R CMD INSTALL /tmp_setup/ospsuite_$3_centOS7.tar.gz --install-tests && \
+R CMD INSTALL /tmp_setup/ospsuite_$3_centOS7.tar.gz --install-tests
