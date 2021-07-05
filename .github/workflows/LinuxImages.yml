@@ -1,4 +1,4 @@
-name: Create OSP Linux images
+name: Create ospsuite-R Linux images
 on: 
   release:
     types: [released]
