@@ -1,5 +1,8 @@
 ARG r_version
 ARG os_version
+ARG tlf_version
+ARG ospsuite_r_version
+ARG rclr_version
 
 FROM ghcr.io/open-systems-pharmacology/base-r${r_version}-${os_version}:latest
 
