@@ -1,0 +1,45 @@
+name: Create OSP Linux images
+on: 
+  release:
+    types: [released]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+        matrix:
+            r_version: [3.6.3, 4.1.0]
+            os_version: [centos7, bionic]
+    runs-on: ubuntu-latest
+    env:
+        RCLR_VERSION: 0.9.1
+        TLF_VERSION: 1.2.5
+        OSPSUITE_R_VERSION: 10.0.25
+    steps:
+      - name: tag name
+        id: tag_name
+        run: |
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF##*/}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: .github/workflows/Dockerfile
+          build-args: |
+            r_version=${{ matrix.r_version }}
+            os_version=${{ matrix.os_version }}
+            ospsuite_r_version=${{ env.OSPSUITE_R_VERSION }}
+            tlf_version=${{ env.TLF_VERSION }}
+            rclr_version=${{ env.RCLR_VERSION }}
+          push: ${{ github.event_name == 'release' }}
+          tags: |
+            ghcr.io/open-systems-pharmacology/ospsuite_${{ env.OSPSUITE_R_VERSION }}-r${{ matrix.r_version }}-${{ matrix.os_version }}:latest
+            ghcr.io/open-systems-pharmacology/ospsuite_${{ env.OSPSUITE_R_VERSION }}-r${{ matrix.r_version }}-${{ matrix.os_version }}:${{ steps.tag_name.outputs.SOURCE_TAG}}
