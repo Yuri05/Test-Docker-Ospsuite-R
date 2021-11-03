@@ -1,0 +1,6 @@
+FROM ghcr.io/open-systems-pharmacology/base-r3.6.3-bionic:latest
+
+ENTRYPOINT ["sh"]
+
+# Copy installation scripts
+RUN mkdir -p /tmp_setup 
