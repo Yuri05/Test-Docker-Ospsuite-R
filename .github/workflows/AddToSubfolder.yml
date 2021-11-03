@@ -1,4 +1,4 @@
-name: Create OSP Linux images
+name: Test add package to subfolder
 on: 
   push:
 
