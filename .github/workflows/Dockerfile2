@@ -1,4 +1,4 @@
-FROM ghcr.io/open-systems-pharmacology/base-r3.6.3-bionic:latest
+FROM rstudio/r-base:base-r3.6.3-bionic
 
 ENTRYPOINT ["sh"]
 
