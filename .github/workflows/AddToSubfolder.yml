@@ -21,4 +21,4 @@ jobs:
           file: .github/workflows/Dockerfile2
           push: true
           tags: |
-            ghcr.io/yuri05/subfolder/test_subfolder:latest
+            ghcr.io/yuri05/subfolder/test_subfolder2:latest
