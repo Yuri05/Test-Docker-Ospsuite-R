@@ -1,0 +1,28 @@
+name: Create OSP Linux images
+on: 
+  push:
+
+jobs:
+  build:
+#    strategy:
+#        matrix:
+#            r_version: [3.6.3, 4.1.0]
+#            os_version: [centos7, bionic]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: .github/workflows/Dockerfile2
+          push: true
+          tags: |
+            ghcr.io/yuri05/test_subfolder:latest
