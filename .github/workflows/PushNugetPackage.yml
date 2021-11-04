@@ -8,8 +8,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
       - name: push nuget package
         run: |
           sudo apt install nuget
-          nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --name github "https://nuget.pkg.github.com/yuri05/index.json"
-          nuget push *.nupkg --source "github" --api-key ${{secrets.PUBLISH_TO_GITHUB_COM}} --skip-duplicate
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --name github "https://nuget.pkg.github.com/yuri05/index.json"
+          dotnet nuget push *.nupkg --source "github" --api-key ${{secrets.PUBLISH_TO_GITHUB_COM}} --skip-duplicate
