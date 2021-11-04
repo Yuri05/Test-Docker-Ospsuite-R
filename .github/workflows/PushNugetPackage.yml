@@ -10,6 +10,6 @@ jobs:
         uses: actions/checkout@v2
       - name: push nuget package
         run: |
-          apt install nuget
+          sudo apt install nuget
           nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --name github "https://nuget.pkg.github.com/yuri05/index.json"
           nuget push *.nupkg --source "github" --api-key ${{secrets.PUBLISH_TO_GITHUB_COM}} --skip-duplicate
