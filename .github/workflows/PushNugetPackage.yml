@@ -1,0 +1,15 @@
+name: Test add package to subfolder
+on: 
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: push nuget package
+        run: |
+          apt install nuget
+          nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --name github "https://nuget.pkg.github.com/yuri05/index.json"
+          nuget push *.nupkg --source "github" --api-key ${{secrets.PUBLISH_TO_GITHUB_COM}} --skip-duplicate
